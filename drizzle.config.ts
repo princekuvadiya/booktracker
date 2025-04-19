@@ -1,15 +1,21 @@
 import type { Config } from 'drizzle-kit';
-import { join } from 'path';
+import { config } from 'dotenv';
 
-// Use absolute path for consistent reference
-const dbFilePath = join(process.cwd(), 'booktracker.db');
+// Load environment variables
+config();
+
+const { DATABASE_URL } = process.env;
+
+if (!DATABASE_URL) {
+  throw new Error('DATABASE_URL environment variable is required');
+}
 
 export default {
   schema: './src/models',
   out: './drizzle/migrations',
-  driver: 'durable-sqlite',
+  driver: 'pg',
   dbCredentials: {
-    url: `file:${dbFilePath}`
+    connectionString: DATABASE_URL
   },
-  dialect: 'sqlite'
+  dialect: 'pg'
 } satisfies Config;
