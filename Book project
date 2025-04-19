@@ -1,0 +1,160 @@
+# 📚 BookTracker Backend
+
+A lightweight backend API built with [ElysiaJS](https://elysiajs.com), [Bun](https://bun.sh), [Zod](https://zod.dev), and [Drizzle ORM](https://orm.drizzle.team) using PostgreSQL. This app allows users to manage a personal reading journal with books and notes.
+
+---
+
+## 🚀 Features
+
+- ⚡ Fast runtime with Bun
+- 🧩 RESTful API with ElysiaJS
+- ✅ Input validation using Zod
+- 🗃️ PostgreSQL database powered by Drizzle ORM
+- 🧠 Manage Books and Notes with full CRUD support
+
+---
+
+## 🏗️ Tech Stack
+
+- **Runtime**: Bun
+- **Framework**: ElysiaJS
+- **Validation**: Zod
+- **ORM**: Drizzle
+- **Database**: PostgreSQL
+
+---
+
+## 📦 Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/booktracker-backend.git
+cd booktracker-backend
+```
+
+### 2. Install Dependencies
+
+Make sure you have [Bun](https://bun.sh) installed.
+
+```bash
+bun install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+DATABASE_URL=postgres://user:password@localhost:5432/booktracker
+```
+
+### 4. Set Up the Database
+
+Run the Drizzle migrations:
+
+```bash
+bunx drizzle-kit generate
+bunx drizzle-kit push
+```
+
+*(Or use your preferred migration strategy with Drizzle.)*
+
+### 5. Run the Server
+
+```bash
+bun run src/index.ts
+```
+
+Server will start on `http://localhost:3000`
+
+---
+
+## 🛠️ API Endpoints
+
+### 📘 Books
+
+| Method | Endpoint       | Description                |
+|--------|----------------|----------------------------|
+| GET    | `/books`       | Get all books              |
+| POST   | `/books`       | Add a new book             |
+| GET    | `/books/:id`   | Get a single book by ID    |
+| PUT    | `/books/:id`   | Update a book              |
+| DELETE | `/books/:id`   | Delete a book              |
+
+### ✍️ Notes
+
+| Method | Endpoint              | Description                |
+|--------|-----------------------|----------------------------|
+| GET    | `/books/:id/notes`    | Get all notes for a book   |
+| POST   | `/books/:id/notes`    | Add a note to a book       |
+
+---
+
+## 📐 Data Models
+
+### Book
+
+```ts
+{
+  id: string;
+  title: string;
+  author: string;
+  status: "not_started" | "in_progress" | "finished";
+  createdAt: Date;
+}
+```
+
+### Note
+
+```ts
+{
+  id: string;
+  bookId: string;
+  content: string;
+  createdAt: Date;
+}
+```
+
+---
+
+## 🛡️ Validation with Zod
+
+- All incoming data is validated using Zod schemas.
+- Book status must be one of: `not_started`, `in_progress`, `finished`.
+- UUIDs and strings are validated before processing.
+
+---
+
+## 📁 Project Structure
+
+```
+/booktracker-backend
+├── src
+│   ├── db              // Drizzle DB setup
+│   ├── models          // Drizzle schema definitions
+│   ├── routes          // ElysiaJS route handlers
+│   ├── schemas         // Zod validation schemas
+│   └── index.ts        // App entrypoint
+├── drizzle.config.ts
+├── .env
+└── bun.lockb
+```
+
+---
+
+## 🤝 Contributing
+
+PRs are welcome! If you're applying for an internship, use this as your playground to learn and showcase your skills.
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+## 🧑‍💻 Author
+
+Built with ❤️ by [Your Name or GitHub Username]
